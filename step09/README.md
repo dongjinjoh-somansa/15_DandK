@@ -1,5 +1,18 @@
 # Step09 서비스 보충 
 
+## NodePort 클러스터 외부에서 접속되지 않는 문제 해결 예
+
+minikube 환경에서는 minikube를 실행한 host에서는 접속할 수 없고 대신 minikube service를 이용하여 host와 minikube 환경 간 tunnel을 뚫어야 한다.
+
+실행예
+
+~~~
+minikube service web-service-np --url
+~~~
+
+위와 같이 실행하면 tunnel 주소가 화면에 나오는데, 해당 주소로 접속하면 된다.
+
+
 
 ## ExtenalName 외부 DNS 주소 해결 예
 
