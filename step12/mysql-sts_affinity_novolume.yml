@@ -29,6 +29,16 @@ spec:                       ## 표2 스테이트풀셋 사양
       labels:
         app: mysql-sts
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - minikube-m03
       containers:           
       - name: mysql
         image: mysql:8      ## Docker Hub MySQL 리포지터리 지정
@@ -38,24 +48,9 @@ spec:                       ## 표2 스테이트풀셋 사양
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:       ## 특징③ 컨테이너상의 마운트 경로 설정 
-        - name: pvc
-          mountPath: /var/lib/mysql
-          subPath: data     ## 초기화 시 빈 디렉터리가 필요
         livenessProbe:      ## MySQL 기동 확인 
           exec:
             command: ["mysqladmin","-p$MYSQL_ROOT_PASSWORD","ping"]
           initialDelaySeconds: 60
           timeoutSeconds: 10
-  volumeClaimTemplates:     ## 특징④볼륨 요구 템플릿
-  - metadata:
-      name: pvc
-    spec:                   ## 표4 퍼시스턴트볼륨 요구 스펙
-      accessModes: [ "ReadWriteOnce" ]
-      ## 환경에 맞게 선택하여, sotrage의 값을 편집
-      #storageClassName: ibmc-file-bronze   # 용량 20Gi IKS
-      #storageClassName: gluster-heketi     # 용량 12Gi GlusterFS
-      storageClassName: standard            # 용량 2Gi  Minikube/GKE
-      resources:
-        requests:
-          storage: 2Gi
+
