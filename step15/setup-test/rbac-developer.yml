@@ -7,7 +7,6 @@ metadata:
   name: developer
   namespace: test
 ---
-################################################
 ##
 # SA와 클러스터 롤 ADMIN을 바인딩
 #
