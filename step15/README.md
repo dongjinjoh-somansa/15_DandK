@@ -17,13 +17,16 @@ $ minikube delete -p <profile>
 
 ## 15.4
 ### 454p
-실행 예 9의 첫째 줄에 `db_client.yml`를 `reg_secret_env.yml`로 변경한다.
+`실행 예 9`의 첫째 줄에 `db_client.yml`를 `reg_secret_env.yml`로 변경한다.
 
 ### 455p
-다음의 명령을 실행하여 .crt와 .key 파일을 생성한다.
+`실행 예 10`을 실행하기 전, 다음의 명령을 실행하여 .crt와 .key 파일을 생성한다.
 ~~~
 $ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt
 ~~~
+
+### 456p
+`실행 예 11`의 첫째 줄에 `apl.yml`를 `secret_volume.yml`로 변경한다.
 
 ## 15.5
 ### 458p
